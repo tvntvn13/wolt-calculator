@@ -1,0 +1,36 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  background-color: #00C2E8;
+  border-radius: 20px;
+} 
+
+.input-container label {
+  text-align: left;
+  width: 90%;
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.input-box {
+  background-color: #fff;
+  max-width: 300px; 
+  width: 50vw;
+  height: 1.5rem;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid #fff;
+  box-shadow: 0 0 5px #111;
+  padding: 7px;
+  color: #111;
+  color-scheme: light;
+}
+
+.input-box:hover {
+  border: 2px solid #00C2E8;
+  box-shadow: 0 0 3px #00C2E8;
+}

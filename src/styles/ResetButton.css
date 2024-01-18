@@ -1,0 +1,13 @@
+.reset-button {
+  background-color: transparent;
+  border: 2px solid #fff;
+  text-align: left;
+  width: auto;
+  place-self: flex-start flex-start;
+  margin-inline-start: 1rem;
+}
+
+.reset-button:hover {
+  background-color: #fff;
+  color: #000;
+}
