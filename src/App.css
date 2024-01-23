@@ -37,3 +37,13 @@
   border-radius: 20px;
   font-family: OmnesRegular, sans-serif;
 }
+
+@media screen and (width <= 420px) {
+  .header {
+    font-size: 1.5rem;
+  }
+
+  .main-container {
+    padding: 1.5rem 1.2rem;
+  }
+}

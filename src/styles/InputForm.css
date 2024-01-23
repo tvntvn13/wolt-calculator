@@ -53,3 +53,10 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+@media screen and (width <= 420px) {
+  .input-container {
+    gap: 0.6rem;
+    width: 70dvw;
+  }
+}

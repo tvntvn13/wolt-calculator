@@ -17,3 +17,9 @@
   transform: scale(1.05);
   transition: 0.2s;
 }
+
+@media screen and (width <= 420px) {
+  .action-button {
+    width: 80%;
+  }
+}
