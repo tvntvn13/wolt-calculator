@@ -1,10 +1,14 @@
 import React from 'react';
 import '../styles/ResultDisplay.css';
 
-const ResultDisplay: React.FC<string> = ({ calculatedFee }) => {
+interface ResultDisplayProps {
+  calculatedFee: string;
+}
+
+const ResultDisplay: React.FC<ResultDisplayProps> = ({ calculatedFee }): JSX.Element => {
   return (
     <div className="result-container">
-      <p>Total Price:</p>
+      <p>Delivery Fee:</p>
       <p data-test-id="fee" className="total-fee">
         {`${calculatedFee} €`}
       </p>

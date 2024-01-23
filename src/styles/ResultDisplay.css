@@ -1,9 +1,12 @@
 .result-container {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 90%;
   justify-content: space-between;
   padding-bottom: 0;
+  font-family: OmnesRegular, sans-serif;
+  font-size: 1.2rem;
+  padding-inline: 1rem;
 }
 
 .total-fee {

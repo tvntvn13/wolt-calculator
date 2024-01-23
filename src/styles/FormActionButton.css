@@ -1,0 +1,19 @@
+.action-button {
+  background-color: transparent;
+  border: 2px solid #fff;
+  text-align: center;
+  width: 100%;
+  place-self: flex-start flex-start;
+  font-family: OmnesBold, sans-serif;
+  border-radius: 40px;
+}
+
+.action-button:hover,
+.action-button:focus,
+.action-button:active {
+  background-color: #5ab5d9;
+  color: #fff;
+  border: 2px solid #fff;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
