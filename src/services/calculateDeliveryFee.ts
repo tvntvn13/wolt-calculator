@@ -9,19 +9,21 @@ export function calculateDeliveryFee(formValue: FormValue): number {
   }
 
   let deliveryFee = calculateBaseFee(deliveryDistance);
-
-  if (cartValue < env.cartValueThreshold) {
-    deliveryFee += env.cartValueThreshold - cartValue;
-  }
+  deliveryFee += calculateMinimumCartValueSurcharge(cartValue);
   deliveryFee += calculateItemSurcharge(numberOfItems);
-  deliveryFee += checkForFridayRushSurcharge(deliveryFee, orderTime);
+  deliveryFee += calculateFridayRushSurcharge(deliveryFee, orderTime);
   deliveryFee = Math.min(deliveryFee, env.maxDeliveryFee);
   return deliveryFee;
 }
 
 function calculateBaseFee(distance: number): number {
-  if (distance <= env.baseDistance) return 2;
-  return 2 + Math.ceil((distance - env.baseDistance) / env.distanceThreshold);
+  if (distance <= env.baseDistance) return env.baseFee;
+  return env.baseFee + Math.ceil((distance - env.baseDistance) / env.distanceThreshold);
+}
+
+function calculateMinimumCartValueSurcharge(cartValue: number): number {
+  if (cartValue >= env.cartValueThreshold) return 0;
+  return env.cartValueThreshold - cartValue;
 }
 
 function calculateItemSurcharge(numberOfItems: number): number {
@@ -31,7 +33,10 @@ function calculateItemSurcharge(numberOfItems: number): number {
   return extraItemsSurcharge + bulkSurcharge;
 }
 
-function checkForFridayRushSurcharge(deliveryFee: number, orderTimeString: string | null): number {
+//FIX:
+//NOTE: check if this works with null date,
+//      but the default date is on rush hour!!
+function calculateFridayRushSurcharge(deliveryFee: number, orderTimeString: string | null): number {
   if (!orderTimeString) return 0;
   const orderTime = new Date(orderTimeString);
   const hour = orderTime.getHours();
@@ -43,7 +48,7 @@ function checkForFridayRushSurcharge(deliveryFee: number, orderTimeString: strin
 }
 
 function isNoItems(numberOfItems: number | null): boolean {
-  return !numberOfItems || numberOfItems < 1;
+  return !numberOfItems || numberOfItems <= 0;
 }
 
 function isPriceOverThreshold(price: number, threshold: number): boolean {

@@ -8,16 +8,27 @@ interface InputFormProps {
   hasBeenSubmitted: boolean;
 }
 
-const checkValidIntegerValues = (value: string, type: string): boolean => {
-  return value !== '' && value !== ',' && value !== '.' && value !== '-' && type === 'number';
-};
-
-const formatValidCartValue = (value: string, name: string): number | null => {
-  if (name === 'cartValue' && value !== '') {
-    const parsedValue = parseFloat(value);
-    if (parsedValue > 0) return parsedValue;
+const formatInputValue = (
+  value: string,
+  name: keyof FormValue,
+  type: string
+): number | string | null => {
+  if (value === '' || value === ',' || value === '.' || value === '-') {
+    return null;
   }
-  return null;
+
+  let parsedValue: number | null = null;
+
+  switch (name) {
+    case 'cartValue':
+      parsedValue = parseFloat(value);
+      return parsedValue > 0 ? parsedValue : null;
+    case 'deliveryDistance':
+    case 'numberOfItems':
+      return type === 'number' ? Math.max(parseInt(value), 0) : null;
+    default:
+      return value;
+  }
 };
 
 const InputForm: React.FC<InputFormProps> = ({
@@ -30,19 +41,7 @@ const InputForm: React.FC<InputFormProps> = ({
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, type } = event.target;
     const name = event.target.name as keyof FormValue;
-    let newValue: number | string | null = null;
-    console.log('name:', name, 'value:', value, 'type:', type);
-
-    if (name === 'cartValue') {
-      newValue = formatValidCartValue(value, name);
-    } else if (checkValidIntegerValues(value, type)) {
-      newValue = type === 'number' ? parseInt(value) : null;
-      if (type === 'number' && newValue && newValue < 0) {
-        newValue = null;
-      }
-    } else {
-      newValue = value;
-    }
+    const newValue = formatInputValue(value, name, type);
 
     setFormValue((previousValue) => ({
       ...previousValue,
@@ -57,10 +56,13 @@ const InputForm: React.FC<InputFormProps> = ({
         aria-describedby="cartValueHint"
         name="cartValue"
         placeholder="0 €"
+        min="0"
+        max="1000000.00"
         step="0.05"
         required={true}
         type="number"
         data-test-id="cartValue"
+        data-testid="cartValue"
         id="cart-value"
         className={hasBeenSubmitted && !cartValue ? 'invalid input-box' : 'input-box'}
         value={formValue.cartValue || ''}
@@ -75,9 +77,12 @@ const InputForm: React.FC<InputFormProps> = ({
         name="deliveryDistance"
         placeholder="0 meters"
         step="5"
+        min="0"
+        max="1000000"
         required={true}
         type="number"
         data-test-id="deliveryDistance"
+        data-testid="deliveryDistance"
         id="delivery-distance"
         className={hasBeenSubmitted && !deliveryDistance ? 'invalid input-box' : 'input-box'}
         value={formValue.deliveryDistance || ''}
@@ -95,6 +100,7 @@ const InputForm: React.FC<InputFormProps> = ({
         required={true}
         type="number"
         data-test-id="numberOfItems"
+        data-testid="numberOfItems"
         id="number-of-items"
         className={hasBeenSubmitted && !numberOfItems ? 'invalid input-box' : 'input-box'}
         value={formValue.numberOfItems || ''}
@@ -110,6 +116,7 @@ const InputForm: React.FC<InputFormProps> = ({
         type="datetime-local"
         required={true}
         data-test-id="orderTime"
+        data-testid="orderTime"
         id="order-time"
         className={hasBeenSubmitted && !orderTime ? 'invalid input-box' : 'input-box'}
         value={formValue.orderTime ?? formatDateTime(new Date())}

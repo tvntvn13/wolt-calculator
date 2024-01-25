@@ -31,7 +31,9 @@ const App: React.FC = (): JSX.Element => {
     <>
       <header className="header">{HEADER_TEXT}</header>
       <main className="main-container">
-        <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => event.preventDefault()}>
+        <form
+          data-testid="form"
+          onSubmit={(event: React.FormEvent<HTMLFormElement>) => event.preventDefault()}>
           <InputForm
             formValue={formValue}
             setFormValue={setFormValue}
