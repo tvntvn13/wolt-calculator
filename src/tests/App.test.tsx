@@ -1,5 +1,8 @@
+import { configure, render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import App from '../App';
-import { fireEvent, render, screen } from '@testing-library/react';
+
+configure({ testIdAttribute: 'data-test-id' });
 
 const HEADER_TEXT = 'Delivery Fee Calculator';
 
@@ -21,39 +24,54 @@ describe('App tests', () => {
     expect(screen.getByPlaceholderText('0 items')).toBeTruthy();
   });
 
-  it('should calculate the delivery fee onSubmit when the button is clicked', () => {
+  it('should calculate the delivery fee onSubmit when the button is clicked', async () => {
     render(<App />);
-
     const cartValueInput = screen.getByTestId('cartValue');
     const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
     const numberOfItemsInput = screen.getByTestId('numberOfItems');
+    const orderTimeInput = screen.getByTestId('orderTime');
+    const user = userEvent.setup();
 
-    fireEvent.change(cartValueInput, { target: { value: 12 } });
-    fireEvent.change(deliveryDistanceInput, { target: { value: 1001 } });
-    fireEvent.change(numberOfItemsInput, { target: { value: 4 } });
+    await user.type(cartValueInput, '12');
+    await user.type(deliveryDistanceInput, '1001');
+    await user.type(numberOfItemsInput, '4');
+    await user.type(orderTimeInput, '12122024');
 
     const calculateFeeButton = screen.getByRole('button');
-    fireEvent.click(calculateFeeButton);
+    await user.click(calculateFeeButton);
 
     expect(screen.getByTestId('fee').textContent).toBe('3.00 €');
   });
 
-  it('should calculate the delivery fee onSubmit when enter is pressed', () => {
+  it('should calculate the delivery fee onSubmit when enter is pressed', async () => {
     render(<App />);
-
     const cartValueInput = screen.getByTestId('cartValue');
     const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
     const numberOfItemsInput = screen.getByTestId('numberOfItems');
+    const orderTimeInput = screen.getByTestId('orderTime');
+    const user = userEvent.setup();
 
-    fireEvent.change(cartValueInput, { target: { value: 8.3 } });
-    fireEvent.change(deliveryDistanceInput, { target: { value: 1001 } });
-    fireEvent.change(numberOfItemsInput, { target: { value: 4 } });
-
-    const form = screen.getByTestId('form');
-    const calculateFeeButton = screen.getByRole('button');
-    fireEvent.click(calculateFeeButton);
-    fireEvent.submit(form);
+    await user.type(cartValueInput, '8.3');
+    await user.type(deliveryDistanceInput, '1001');
+    await user.type(numberOfItemsInput, '4');
+    await user.type(orderTimeInput, '12122024{enter}');
 
     expect(screen.getByTestId('fee').textContent).toBe('4.70 €');
+  });
+
+  it('should calculate the delivery fee', async () => {
+    render(<App />);
+    const cartValueInput = screen.getByTestId('cartValue');
+    const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
+    const numberOfItemsInput = screen.getByTestId('numberOfItems');
+    const orderTimeInput = screen.getByTestId('orderTime');
+    const user = userEvent.setup();
+
+    await user.type(cartValueInput, '5.8');
+    await user.type(deliveryDistanceInput, '1000');
+    await user.type(numberOfItemsInput, '4');
+    await user.type(orderTimeInput, '12122024{enter}');
+
+    expect(screen.getByTestId('fee').textContent).toBe('6.20 €');
   });
 });
