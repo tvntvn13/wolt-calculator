@@ -32,7 +32,7 @@ const App: React.FC = (): JSX.Element => {
       <header className="header">{HEADER_TEXT}</header>
       <main className="main-container">
         <form
-          data-testid="form"
+          data-test-id="form"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => event.preventDefault()}>
           <InputForm
             formValue={formValue}
@@ -40,9 +40,7 @@ const App: React.FC = (): JSX.Element => {
             hasBeenSubmitted={hasBeenSubmitted}
           />
           <ResultDisplay calculatedFee={deliveryFee.toFixed(2)} />
-          <footer>
-            <FormActionButton {...{ onClick: handleSubmit, text: 'CALCULATE FEE' }} />
-          </footer>
+          <FormActionButton onClick={handleSubmit} text="CALCULATE FEE" />
         </form>
       </main>
     </>

@@ -1,35 +1,13 @@
-import '../styles/InputForm.css';
 import { FormValue } from '../interfaces/formValue';
 import { formatDateTime } from '../services/formatDateTime';
+import { formatInputValue } from '../services/formatInputValue';
+import '../styles/InputForm.css';
 
 interface InputFormProps {
   formValue: FormValue;
   setFormValue: React.Dispatch<React.SetStateAction<FormValue>>;
   hasBeenSubmitted: boolean;
 }
-
-const formatInputValue = (
-  value: string,
-  name: keyof FormValue,
-  type: string
-): number | string | null => {
-  if (value === '' || value === ',' || value === '.' || value === '-') {
-    return null;
-  }
-
-  let parsedValue: number | null = null;
-
-  switch (name) {
-    case 'cartValue':
-      parsedValue = parseFloat(value);
-      return parsedValue > 0 ? parsedValue : null;
-    case 'deliveryDistance':
-    case 'numberOfItems':
-      return type === 'number' ? Math.max(parseInt(value), 0) : null;
-    default:
-      return value;
-  }
-};
 
 const InputForm: React.FC<InputFormProps> = ({
   formValue,
@@ -39,9 +17,9 @@ const InputForm: React.FC<InputFormProps> = ({
   const { cartValue, deliveryDistance, numberOfItems, orderTime } = formValue;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { value, type } = event.target;
+    const { value } = event.target;
     const name = event.target.name as keyof FormValue;
-    const newValue = formatInputValue(value, name, type);
+    const newValue = formatInputValue(value, name);
 
     setFormValue((previousValue) => ({
       ...previousValue,
@@ -65,7 +43,7 @@ const InputForm: React.FC<InputFormProps> = ({
         data-testid="cartValue"
         id="cart-value"
         className={hasBeenSubmitted && !cartValue ? 'invalid input-box' : 'input-box'}
-        value={formValue.cartValue || ''}
+        value={cartValue || ''}
         onChange={handleInputChange}
       />
       <span id="cartValueHint" className="hidden">
@@ -82,10 +60,9 @@ const InputForm: React.FC<InputFormProps> = ({
         required={true}
         type="number"
         data-test-id="deliveryDistance"
-        data-testid="deliveryDistance"
         id="delivery-distance"
         className={hasBeenSubmitted && !deliveryDistance ? 'invalid input-box' : 'input-box'}
-        value={formValue.deliveryDistance || ''}
+        value={deliveryDistance || ''}
         onChange={handleInputChange}
       />
       <span id="deliveryDistanceHint" className="hidden">
@@ -100,10 +77,9 @@ const InputForm: React.FC<InputFormProps> = ({
         required={true}
         type="number"
         data-test-id="numberOfItems"
-        data-testid="numberOfItems"
         id="number-of-items"
         className={hasBeenSubmitted && !numberOfItems ? 'invalid input-box' : 'input-box'}
-        value={formValue.numberOfItems || ''}
+        value={numberOfItems || ''}
         onChange={handleInputChange}
       />
       <span id="numberOfItemsHint" className="hidden">
@@ -116,10 +92,9 @@ const InputForm: React.FC<InputFormProps> = ({
         type="datetime-local"
         required={true}
         data-test-id="orderTime"
-        data-testid="orderTime"
         id="order-time"
         className={hasBeenSubmitted && !orderTime ? 'invalid input-box' : 'input-box'}
-        value={formValue.orderTime ?? formatDateTime(new Date())}
+        value={orderTime ?? formatDateTime(new Date())}
         onChange={handleInputChange}
       />
       <span id="orderTimeHint" className="hidden">

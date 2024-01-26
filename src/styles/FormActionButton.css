@@ -1,19 +1,24 @@
 .action-button {
-  background-color: transparent;
-  border: 2px solid #fff;
+  margin-top: 1rem;
+  background-color: #111;
+  border: 2px solid #111;
   text-align: center;
+  color: #fff;
   width: 100%;
   place-self: flex-start flex-start;
   font-family: OmnesBold, sans-serif;
   border-radius: 40px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 0 4px #111a;
+  padding: 0.6rem 1.5rem;
 }
 
 .action-button:hover,
 .action-button:focus,
 .action-button:active {
-  background-color: #5ab5d9;
-  color: #fff;
-  border: 2px solid #fff;
+  background-color: #fff;
+  color: #034;
+  border: 2px solid #034;
   transform: scale(1.05);
   transition: 0.2s;
 }

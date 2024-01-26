@@ -1,10 +1,10 @@
-import { FormValue } from '../interfaces/formValue';
 import { environment as env } from '../environment/environment';
+import { FormValue } from '../interfaces/formValue';
 
 export function calculateDeliveryFee(formValue: FormValue): number {
   const { cartValue, deliveryDistance, numberOfItems, orderTime } = formValue;
 
-  if (isNoItems(numberOfItems) || isPriceOverThreshold(cartValue, env.freeDeliveryLimit)) {
+  if (isFreeDelivery(numberOfItems, cartValue, env.freeDeliveryThreshold)) {
     return 0;
   }
 
@@ -13,7 +13,7 @@ export function calculateDeliveryFee(formValue: FormValue): number {
   deliveryFee += calculateItemSurcharge(numberOfItems);
   deliveryFee += calculateFridayRushSurcharge(deliveryFee, orderTime);
   deliveryFee = Math.min(deliveryFee, env.maxDeliveryFee);
-  return deliveryFee;
+  return Math.round(deliveryFee * 100) / 100;
 }
 
 function calculateBaseFee(distance: number): number {
@@ -27,24 +27,25 @@ function calculateMinimumCartValueSurcharge(cartValue: number): number {
 }
 
 function calculateItemSurcharge(numberOfItems: number): number {
-  if (numberOfItems <= env.smallItemLimit) return 0;
-  const bulkSurcharge = numberOfItems > env.bulkItemLimit ? env.bulkSurcharge : 0;
-  const extraItemsSurcharge = (numberOfItems - env.smallItemLimit) * env.itemMultiplier;
+  if (numberOfItems <= env.smallItemThreshold) return 0;
+  const bulkSurcharge = numberOfItems > env.bulkItemThreshold ? env.bulkSurcharge : 0;
+  const extraItemsSurcharge = (numberOfItems - env.smallItemThreshold) * env.itemMultiplier;
   return extraItemsSurcharge + bulkSurcharge;
 }
 
-//FIX:
-//NOTE: check if this works with null date,
-//      but the default date is on rush hour!!
 function calculateFridayRushSurcharge(deliveryFee: number, orderTimeString: string | null): number {
   if (!orderTimeString) return 0;
   const orderTime = new Date(orderTimeString);
   const hour = orderTime.getHours();
   const day = orderTime.getDay();
-  if (day === env.rushHourDay && hour >= env.rushHourStart && hour <= env.rushHourdEnd) {
+  if (day === env.rushHourDay && hour >= env.rushHourStart && hour < env.rushHourEnd) {
     return deliveryFee * env.rushHourMultiplier - deliveryFee;
   }
   return 0;
+}
+
+function isFreeDelivery(numberOfItems: number | null, price: number, threshold: number): boolean {
+  return isNoItems(numberOfItems) || isPriceOverThreshold(price, threshold);
 }
 
 function isNoItems(numberOfItems: number | null): boolean {

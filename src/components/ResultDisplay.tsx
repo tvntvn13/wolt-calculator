@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/ResultDisplay.css';
 
 interface ResultDisplayProps {
@@ -7,9 +6,9 @@ interface ResultDisplayProps {
 
 const ResultDisplay: React.FC<ResultDisplayProps> = ({ calculatedFee }): JSX.Element => {
   return (
-    <div className="result-container">
+    <div className="result-container" aria-live="polite">
       <p>Delivery Fee:</p>
-      <p data-test-id="fee" data-testid="fee" className="total-fee">
+      <p data-test-id="fee" className="total-fee">
         {`${calculatedFee} €`}
       </p>
     </div>

@@ -1,6 +1,6 @@
 import '../styles/FormActionButton.css';
 
-export interface FormActionButtonProps {
+interface FormActionButtonProps {
   onClick: () => void;
   text: string;
 }
