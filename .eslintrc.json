@@ -3,11 +3,18 @@
     "browser": true,
     "es2021": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "root": true,
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:prettier/recommended"
   ],
 
@@ -16,10 +23,14 @@
 
   "parserOptions": {
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "plugins": ["@typescript-eslint", "react-refresh"],
+  "plugins": ["@typescript-eslint", "react", "react-refresh", "react-hooks"],
   "rules": {
+    "react/prop-types": "off",
     "react-refresh/only-export-components": ["warn", { "allowConstantExport": true }],
     "prettier/prettier": "error",
     "linebreak-style": ["error", "unix"],

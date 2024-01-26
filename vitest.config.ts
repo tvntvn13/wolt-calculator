@@ -12,5 +12,6 @@ export default defineConfig({
       provider: 'v8',
       exclude: ['src/environment/*', 'src/interfaces/*', 'src/vite-env.d.ts', 'src/main.tsx']
     }
+    // reporters: 'verbose'
   }
 });
