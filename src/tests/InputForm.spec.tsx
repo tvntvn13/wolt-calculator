@@ -35,7 +35,7 @@ describe('InputForm component tests', () => {
 
   it('should show correct placeholders', () => {
     renderInputForm();
-    expect(screen.getByPlaceholderText('0 €')).toBeTruthy();
+    expect(screen.getByPlaceholderText('0.00 €')).toBeTruthy();
     expect(screen.getByPlaceholderText('0 meters')).toBeTruthy();
     expect(screen.getByPlaceholderText('0 items')).toBeTruthy();
     expect(screen.getByTestId('orderTime').closest('input')?.value).toEqual(
@@ -52,8 +52,8 @@ describe('InputForm component tests', () => {
 
     const user = userEvent.setup();
 
-    const inputValues = ['10.10', '1000', '2', '0000'];
-    const lengthOfInputs = inputValues.join('').length - 1;
+    const inputValues = ['11.65', '1000', '2', '1010'];
+    const lengthOfInputs = inputValues.join('').length - 1; // minus the '.'
 
     await user.type(cartValueInput, inputValues[0]);
     await user.type(deliveryDistanceInput, inputValues[1]);
@@ -71,7 +71,7 @@ describe('InputForm component tests', () => {
 
     const user = userEvent.setup();
     const inputValues = ['    1,2', '00000001000', '000 04', '12122024'];
-    const inputValuesLength = inputValues.join('').replaceAll(' ', '').length - 1;
+    const inputValuesLength = inputValues.join('').replaceAll(' ', '').length - 1; // minus the ','
 
     await user.type(cartValueInput, inputValues[0]);
     await user.type(deliveryDistanceInput, inputValues[1]);
@@ -97,6 +97,7 @@ describe('InputForm component tests', () => {
     const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
     const numberOfItemsInput = screen.getByTestId('numberOfItems');
     const orderTimeInput = screen.getByTestId('orderTime');
+
     expect(cartValueInput.classList.contains('invalid')).toBe(true);
     expect(deliveryDistanceInput.classList.contains('invalid')).toBe(true);
     expect(numberOfItemsInput.classList.contains('invalid')).toBe(true);

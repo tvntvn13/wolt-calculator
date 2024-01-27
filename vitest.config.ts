@@ -5,12 +5,12 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   test: {
-    include: ['**/*.test.{tsx,ts}'],
+    include: ['**/*.spec.{tsx,ts}'],
     globals: true,
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
-      exclude: ['src/environment/*', 'src/interfaces/*', 'src/vite-env.d.ts', 'src/main.tsx']
+      exclude: ['src/environments/*', 'src/interfaces/*', 'src/vite-env.d.ts', 'src/main.tsx']
     }
     // reporters: 'verbose'
   }
