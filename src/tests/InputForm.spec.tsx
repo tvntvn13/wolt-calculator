@@ -1,4 +1,4 @@
-import { configure, render, screen } from '@testing-library/react';
+import { configure, isInaccessible, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import InputForm from '../components/InputForm';
 import { FormValue } from '../interfaces/formValue';
@@ -106,5 +106,15 @@ describe('InputForm component tests', () => {
     expect(deliveryDistanceInput.classList.contains('invalid')).toBe(true);
     expect(numberOfItemsInput.classList.contains('invalid')).toBe(true);
     expect(orderTimeInput.classList.contains('invalid')).toBe(true);
+  });
+
+  it('all fields should be accessible', async () => {
+    renderInputForm();
+    const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput } = setup();
+
+    expect(isInaccessible(cartValueInput)).toBe(false);
+    expect(isInaccessible(deliveryDistanceInput)).toBe(false);
+    expect(isInaccessible(numberOfItemsInput)).toBe(false);
+    expect(isInaccessible(orderTimeInput)).toBe(false);
   });
 });

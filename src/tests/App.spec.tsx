@@ -1,4 +1,4 @@
-import { configure, fireEvent, render, screen } from '@testing-library/react';
+import { configure, fireEvent, isInaccessible, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { formatDateTime } from '../services/formatDateTime';
 import { testCases } from '../tests/data/testCases';
@@ -50,6 +50,22 @@ describe('App tests', () => {
       expect(screen.getByPlaceholderText('0 meters')).toBeTruthy();
       expect(screen.getByPlaceholderText('0 items')).toBeTruthy();
       expect(orderTimeInput.closest('input')?.value).toEqual(formatDateTime(new Date()));
+    });
+
+    it('every element should be accessible', () => {
+      const {
+        cartValueInput,
+        deliveryDistanceInput,
+        numberOfItemsInput,
+        orderTimeInput,
+        calculateFeeButton
+      } = setup();
+
+      expect(isInaccessible(cartValueInput)).toBe(false);
+      expect(isInaccessible(deliveryDistanceInput)).toBe(false);
+      expect(isInaccessible(numberOfItemsInput)).toBe(false);
+      expect(isInaccessible(orderTimeInput)).toBe(false);
+      expect(isInaccessible(calculateFeeButton)).toBe(false);
     });
 
     it('should keep the values in the inputs after enter is pressed or button is clicked', async () => {
