@@ -8,6 +8,7 @@
   font-family: OmnesMedium, sans-serif;
   font-size: 1.2rem;
   color: #034;
+  cursor: default;
 }
 
 .total-fee {
@@ -15,4 +16,5 @@
   font-size: 1.5rem;
   color: #034;
   font-family: OmnesSemiBold, sans-serif;
+  cursor: default;
 }

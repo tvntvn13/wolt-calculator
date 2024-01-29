@@ -26,7 +26,7 @@
   height: 2.2rem;
   border-radius: 10px;
   outline: none;
-  border: 2px solid #159cc4;
+  border: 2px solid #158ab7;
   box-shadow: 0 0 5px #111;
   padding: 5px;
   color: #111;
@@ -43,7 +43,11 @@
 .input-box:active {
   transform: scale(1.05);
   transition: 0.2s;
-  border: 2px solid #00c2e8;
+  border: 2px solid #00d8f6;
+}
+
+input[type='datetime-local'] {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .invalid {
