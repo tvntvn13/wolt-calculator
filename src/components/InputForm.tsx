@@ -1,6 +1,6 @@
 import { FormValue } from '../interfaces/formValue';
 import { formatDateTime } from '../services/formatDateTime';
-import { parseInputValue } from '../services/formatInputValue';
+import { parseInputValue } from '../services/parseInputValue';
 import '../styles/InputForm.css';
 
 interface InputFormProps {
