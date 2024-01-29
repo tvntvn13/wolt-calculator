@@ -27,6 +27,21 @@ const renderInputForm = (overrides?: any) => {
   return { setFormValue, hasBeenSubmitted, formValue };
 };
 
+const setup = () => {
+  const cartValueInput = screen.getByTestId('cartValue');
+  const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
+  const numberOfItemsInput = screen.getByTestId('numberOfItems');
+  const orderTimeInput = screen.getByTestId('orderTime');
+  const user = userEvent.setup();
+  return {
+    cartValueInput,
+    deliveryDistanceInput,
+    numberOfItemsInput,
+    orderTimeInput,
+    user
+  };
+};
+
 describe('InputForm component tests', () => {
   it('should render properly', () => {
     renderInputForm();
@@ -45,12 +60,8 @@ describe('InputForm component tests', () => {
 
   it('should call the setFormValue on every input change, (no spaces)', async () => {
     const { setFormValue } = renderInputForm();
-    const cartValueInput = screen.getByTestId('cartValue');
-    const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
-    const numberOfItemsInput = screen.getByTestId('numberOfItems');
-    const orderTimeInput = screen.getByTestId('orderTime');
-
-    const user = userEvent.setup();
+    const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput, user } =
+      setup();
 
     const inputValues = ['11.65', '1000', '2', '1010'];
     const lengthOfInputs = inputValues.join('').length - 1; // minus the '.'
@@ -64,12 +75,8 @@ describe('InputForm component tests', () => {
 
   it('should call the setFormValue on input change, (with spaces)', async () => {
     const { setFormValue } = renderInputForm();
-    const cartValueInput = screen.getByTestId('cartValue');
-    const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
-    const numberOfItemsInput = screen.getByTestId('numberOfItems');
-    const orderTimeInput = screen.getByTestId('orderTime');
-
-    const user = userEvent.setup();
+    const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput, user } =
+      setup();
     const inputValues = ['    1,2', '00000001000', '000 04', '12122024'];
     const inputValuesLength = inputValues.join('').replaceAll(' ', '').length - 1; // minus the ','
 
@@ -93,10 +100,7 @@ describe('InputForm component tests', () => {
         hasBeenSubmitted={true}
       />
     );
-    const cartValueInput = screen.getByTestId('cartValue');
-    const deliveryDistanceInput = screen.getByTestId('deliveryDistance');
-    const numberOfItemsInput = screen.getByTestId('numberOfItems');
-    const orderTimeInput = screen.getByTestId('orderTime');
+    const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput } = setup();
 
     expect(cartValueInput.classList.contains('invalid')).toBe(true);
     expect(deliveryDistanceInput.classList.contains('invalid')).toBe(true);
