@@ -1,3 +1,4 @@
+import { FormValue } from '../interfaces/formValue';
 import { calculateDeliveryFee } from '../services/calculateDeliveryFee';
 
 const defaultFormValue = {
@@ -7,7 +8,7 @@ const defaultFormValue = {
   orderTime: '2021-03-18T10:00'
 };
 
-let formValue;
+let formValue: FormValue;
 beforeEach(() => {
   formValue = {
     ...defaultFormValue
