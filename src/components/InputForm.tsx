@@ -1,6 +1,6 @@
 import { FormValue } from '../interfaces/formValue';
 import { formatDateTime } from '../services/formatDateTime';
-import { formatInputValue } from '../services/formatInputValue';
+import { parseInputValue } from '../services/formatInputValue';
 import '../styles/InputForm.css';
 
 interface InputFormProps {
@@ -19,7 +19,7 @@ const InputForm: React.FC<InputFormProps> = ({
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     const name = event.target.name as keyof FormValue;
-    const newValue = formatInputValue(value, name);
+    const newValue = parseInputValue(value, name);
 
     setFormValue((previousValue) => ({
       ...previousValue,
@@ -32,18 +32,18 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="cart-value">Cart Value (€)</label>
       <input
         aria-describedby="cartValueHint"
+        aria-required="true"
         name="cartValue"
-        placeholder="0 €"
-        min="0"
+        placeholder="0.00 €"
+        min="0.1"
         max="1000000.00"
-        step="0.05"
+        step="0.01"
         required={true}
         type="number"
         data-test-id="cartValue"
-        data-testid="cartValue"
         id="cart-value"
         className={hasBeenSubmitted && !cartValue ? 'invalid input-box' : 'input-box'}
-        value={cartValue || ''}
+        value={cartValue >= 0 ? cartValue : ''}
         onChange={handleInputChange}
       />
       <span id="cartValueHint" className="hidden">
@@ -52,10 +52,11 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="delivery-distance">Delivery Distance (m)</label>
       <input
         aria-describedby="deliveryDistanceHint"
+        aria-required="true"
         name="deliveryDistance"
         placeholder="0 meters"
-        step="5"
-        min="0"
+        step="1"
+        min="1"
         max="1000000"
         required={true}
         type="number"
@@ -71,9 +72,12 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="number-of-items">Number of Items</label>
       <input
         aria-describedby="numberOfItemsHint"
+        aria-required="true"
         name="numberOfItems"
         placeholder="0 items"
         step="1"
+        min="1"
+        max="1000000"
         required={true}
         type="number"
         data-test-id="numberOfItems"
@@ -88,6 +92,7 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="order-time">Order Time</label>
       <input
         aria-describedby="orderTimeHint"
+        aria-required="true"
         name="orderTime"
         type="datetime-local"
         required={true}

@@ -1,10 +1,6 @@
 import { FormValue } from '../interfaces/formValue';
 
-export function formatInputValue(value: string, name: keyof FormValue): number | string | null {
-  if (value === '' || value === ',' || value === '.' || value === '-') {
-    return null;
-  }
-
+export function parseInputValue(value: string, name: keyof FormValue): number | string | null {
   switch (name) {
     case 'cartValue':
       return Math.max(parseFloat(value), 0);

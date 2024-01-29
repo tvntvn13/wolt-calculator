@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import './App.css';
-import './fonts/OmnesBold.woff';
-import './fonts/OmnesRegular.woff';
+import FormActionButton from './components/FormActionButton';
 import InputForm from './components/InputForm';
 import ResultDisplay from './components/ResultDisplay';
 import { FormValue } from './interfaces/formValue';
-import { calculateDeliveryFee } from './services/calculateDeliveryFee';
-import FormActionButton from './components/FormActionButton';
+import { calculateDeliveryFee, isValidFormValue } from './services/calculateDeliveryFee';
 import { formatDateTime } from './services/formatDateTime';
 
 const App: React.FC = (): JSX.Element => {
   const HEADER_TEXT = 'Delivery Fee Calculator';
   const defaultFormValue: FormValue = {
-    cartValue: 0,
+    cartValue: -1, // has to be < 0 for the placeholder logic in InputForm
     deliveryDistance: 0,
     numberOfItems: 0,
     orderTime: formatDateTime(new Date())
@@ -22,14 +20,19 @@ const App: React.FC = (): JSX.Element => {
   const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
 
   const handleSubmit = () => {
-    const calculatedFee = calculateDeliveryFee(formValue);
-    setDeliveryFee(calculatedFee);
+    if (!isValidFormValue(formValue)) {
+      setDeliveryFee(0);
+    } else {
+      setDeliveryFee(calculateDeliveryFee(formValue));
+    }
     setHasBeenSubmitted(true);
   };
 
   return (
     <>
-      <header className="header">{HEADER_TEXT}</header>
+      <header className="header">
+        <h1>{HEADER_TEXT}</h1>
+      </header>
       <main className="main-container">
         <form
           data-test-id="form"
