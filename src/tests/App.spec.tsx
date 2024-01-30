@@ -1,13 +1,12 @@
 import { configure, fireEvent, isInaccessible, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import App from '../App';
 import { formatDateTime } from '../services/formatDateTime';
 import { testCases } from '../tests/data/testCases';
-import App from '../App';
 
 configure({ testIdAttribute: 'data-test-id' });
 
 const HEADER_TEXT = 'Delivery Fee Calculator';
-
 const { noRushHourCases, rushHourCases } = testCases;
 
 const setup = () => {
@@ -31,7 +30,7 @@ const setup = () => {
 };
 
 describe('App tests', () => {
-  describe('UI tests', () => {
+  describe('Basic functionality', () => {
     it('should render without crashing', () => {
       render(<App />);
       expect(screen.getByText(HEADER_TEXT)).toBeTruthy();
@@ -52,7 +51,7 @@ describe('App tests', () => {
       expect(orderTimeInput.closest('input')?.value).toEqual(formatDateTime(new Date()));
     });
 
-    it('every element should be accessible', () => {
+    it('all elements should be accessible', () => {
       const {
         cartValueInput,
         deliveryDistanceInput,
@@ -161,7 +160,7 @@ describe('App tests', () => {
           await user.type(cartValueInput, cartValue);
           await user.type(deliveryDistanceInput, deliveryDistance);
           await user.type(numberOfItemsInput, numberOfItems);
-          userEvent.clear(screen.getByTestId('orderTime'));
+          userEvent.clear(orderTimeInput);
           await user.type(orderTimeInput, orderTime);
 
           await user.click(calculateFeeButton);

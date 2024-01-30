@@ -3,7 +3,7 @@ import ResultDisplay from '../components/ResultDisplay';
 
 configure({ testIdAttribute: 'data-test-id' });
 
-const setup = (deliveryFee: number) => {
+const setup = (deliveryFee: number = 0) => {
   render(<ResultDisplay calculatedFee={deliveryFee.toFixed(2)} />);
   const feeDisplay = screen.getByTestId('fee');
   return feeDisplay;

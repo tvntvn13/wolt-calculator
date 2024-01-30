@@ -31,7 +31,7 @@
   padding: 5px;
   color: #111;
   color-scheme: light;
-  font-family: OmnesMedium, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   padding-left: 1rem;
   font-size: 1rem;
   transition: 0.2s;
@@ -44,10 +44,6 @@
   transform: scale(1.05);
   transition: 0.2s;
   border: 2px solid #00d8f6;
-}
-
-input[type='datetime-local'] {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .invalid {

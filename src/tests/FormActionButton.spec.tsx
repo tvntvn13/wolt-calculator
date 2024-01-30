@@ -18,13 +18,13 @@ describe('FormActionButton component tests', () => {
     expect(button).toBeTruthy();
   });
 
-  it('it should call handleSubmit when button is clicked', async () => {
+  it('should call handleSubmit when button is clicked', async () => {
     const { user, button } = setup();
     await user.click(button);
     expect(handleSubmit).toHaveBeenCalled();
   });
 
-  it('it should display the text passed in', () => {
+  it('should display the text passed in', () => {
     const { button } = setup();
     expect(button.textContent).toBe('CALCULATE FEE');
   });

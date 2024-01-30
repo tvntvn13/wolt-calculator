@@ -10,8 +10,13 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
-      exclude: ['src/environments/*', 'src/interfaces/*', 'src/vite-env.d.ts', 'src/main.tsx']
+      exclude: [
+        'src/environments/*',
+        'src/interfaces/*',
+        'src/vite-env.d.ts',
+        'src/main.tsx',
+        'src/tests/data/*'
+      ]
     }
-    // reporters: 'verbose'
   }
 });
