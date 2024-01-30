@@ -9,7 +9,7 @@ const setup = (deliveryFee: number = 0) => {
   return feeDisplay;
 };
 
-describe('ResultDisplay component tests', () => {
+describe('ResultDisplay tests', () => {
   it('should render the component', () => {
     const feeDisplay = setup(0);
     expect(feeDisplay).toBeTruthy();

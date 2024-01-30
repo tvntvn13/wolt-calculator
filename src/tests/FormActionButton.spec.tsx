@@ -12,7 +12,7 @@ const setup = () => {
   return { user, button };
 };
 
-describe('FormActionButton component tests', () => {
+describe('FormActionButton tests', () => {
   it('should render properly', () => {
     const { button } = setup();
     expect(button).toBeTruthy();

@@ -15,6 +15,9 @@ const InputForm: React.FC<InputFormProps> = ({
   hasBeenSubmitted
 }): JSX.Element => {
   const { cartValue, deliveryDistance, numberOfItems, orderTime } = formValue;
+  const MIN_FLOAT_VALUE = 0.01;
+  const MIN_INT_VALUE = 1;
+  const MAX_VALUE = 1000000;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
@@ -35,19 +38,23 @@ const InputForm: React.FC<InputFormProps> = ({
         aria-required="true"
         name="cartValue"
         placeholder="0.00 €"
-        min="0.1"
-        max="1000000.00"
-        step="0.01"
+        min={MIN_FLOAT_VALUE}
+        max={MAX_VALUE}
+        step={MIN_FLOAT_VALUE}
         required={true}
         type="number"
         data-test-id="cartValue"
         id="cart-value"
-        className={hasBeenSubmitted && !cartValue ? 'invalid input-box' : 'input-box'}
+        className={
+          hasBeenSubmitted && (!cartValue || cartValue < MIN_FLOAT_VALUE)
+            ? 'invalid input-box'
+            : 'input-box'
+        }
         value={cartValue >= 0 ? cartValue : ''}
         onChange={handleInputChange}
       />
       <span id="cartValueHint" className="hidden">
-        Enter the cart value in euros. Accepts only positive decimal numbers.
+        Enter the cart value in euros. Accepts positive decimal numbers between 0.01 and 1000000.
       </span>
       <label htmlFor="delivery-distance">Delivery Distance (m)</label>
       <input
@@ -55,9 +62,9 @@ const InputForm: React.FC<InputFormProps> = ({
         aria-required="true"
         name="deliveryDistance"
         placeholder="0 meters"
-        step="1"
-        min="1"
-        max="1000000"
+        step={MIN_INT_VALUE}
+        min={MIN_INT_VALUE}
+        max={MAX_VALUE}
         required={true}
         type="number"
         data-test-id="deliveryDistance"
@@ -67,7 +74,7 @@ const InputForm: React.FC<InputFormProps> = ({
         onChange={handleInputChange}
       />
       <span id="deliveryDistanceHint" className="hidden">
-        Enter the distance in meters. Accepts only positive numbers.
+        Enter the distance in meters. Accepts positive numbers between 1 and 1000000.
       </span>
       <label htmlFor="number-of-items">Number of Items</label>
       <input
@@ -75,9 +82,9 @@ const InputForm: React.FC<InputFormProps> = ({
         aria-required="true"
         name="numberOfItems"
         placeholder="0 items"
-        step="1"
-        min="1"
-        max="1000000"
+        step={MIN_INT_VALUE}
+        min={MIN_INT_VALUE}
+        max={MAX_VALUE}
         required={true}
         type="number"
         data-test-id="numberOfItems"
@@ -87,7 +94,7 @@ const InputForm: React.FC<InputFormProps> = ({
         onChange={handleInputChange}
       />
       <span id="numberOfItemsHint" className="hidden">
-        Enter the number of items. Accepts only positive numbers.
+        Enter the number of items. Accepts positive numbers between 1 and 1000000.
       </span>
       <label htmlFor="order-time">Order Time</label>
       <input

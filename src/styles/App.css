@@ -2,21 +2,21 @@
   font-family: OmnesBold;
   src:
     local('OmnesBold'),
-    url('./assets/fonts/OmnesBold.woff') format('woff');
+    url('../assets/fonts/OmnesBold.woff') format('woff');
 }
 
 @font-face {
   font-family: OmnesSemiBold;
   src:
     local('OmnesSemiBold'),
-    url('./assets/fonts/OmnesSemiBold.woff') format('woff');
+    url('../assets/fonts/OmnesSemiBold.woff') format('woff');
 }
 
 @font-face {
   font-family: OmnesMedium;
   src:
     local('OmnesMedium'),
-    url('./assets/fonts/OmnesMedium.woff') format('woff');
+    url('../assets/fonts/OmnesMedium.woff') format('woff');
 }
 
 * {
@@ -29,13 +29,7 @@ html,
 body {
   min-height: 100%;
   min-width: 100%;
-}
-
-:root {
   line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgb(255 255 255 / 87%);
   background-color: #242424;
   font-synthesis: none;
   text-rendering: optimizelegibility;

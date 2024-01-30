@@ -42,7 +42,7 @@ const setup = () => {
   };
 };
 
-describe('InputForm component tests', () => {
+describe('InputForm tests', () => {
   it('should render properly', () => {
     renderInputForm();
     expect(screen.getByLabelText('Order Time')).toBeTruthy();
@@ -64,11 +64,12 @@ describe('InputForm component tests', () => {
       setup();
 
     const inputValues = ['11.65', '1000', '2', '1010'];
-    const lengthOfInputs = inputValues.join('').length - 1; // minus the '.'
+    const lengthOfInputs = inputValues.join('').length;
 
     await user.type(cartValueInput, inputValues[0]);
     await user.type(deliveryDistanceInput, inputValues[1]);
     await user.type(numberOfItemsInput, inputValues[2]);
+    userEvent.clear(orderTimeInput);
     await user.type(orderTimeInput, inputValues[3]);
     expect(setFormValue).toHaveBeenCalledTimes(lengthOfInputs);
   });
@@ -78,13 +79,32 @@ describe('InputForm component tests', () => {
     const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput, user } =
       setup();
     const inputValues = ['    1,2', '00000001000', '000 04', '12122024'];
-    const inputValuesLength = inputValues.join('').replaceAll(' ', '').length - 1; // minus the ','
+    const inputValuesLength = inputValues.join('').replaceAll(' ', '').length;
 
     await user.type(cartValueInput, inputValues[0]);
     await user.type(deliveryDistanceInput, inputValues[1]);
     await user.type(numberOfItemsInput, inputValues[2]);
+    userEvent.clear(orderTimeInput);
     await user.type(orderTimeInput, inputValues[3]);
     expect(setFormValue).toHaveBeenCalledTimes(inputValuesLength);
+  });
+
+  it('should not apply invalid classes to inputs before first submit', async () => {
+    renderInputForm();
+    const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput, user } =
+      setup();
+    const invalid = 'invalid';
+
+    await user.type(cartValueInput, '0.0');
+    await user.type(deliveryDistanceInput, '0');
+    await user.type(numberOfItemsInput, '0');
+    userEvent.clear(orderTimeInput);
+    await user.type(orderTimeInput, '0');
+
+    expect(cartValueInput.classList.contains(invalid)).toBe(false);
+    expect(deliveryDistanceInput.classList.contains(invalid)).toBe(false);
+    expect(numberOfItemsInput.classList.contains(invalid)).toBe(false);
+    expect(orderTimeInput.classList.contains(invalid)).toBe(false);
   });
 
   it('should apply invalid class to invalid inputs after first submit', () => {
@@ -94,18 +114,19 @@ describe('InputForm component tests', () => {
           cartValue: 0,
           deliveryDistance: 0,
           numberOfItems: 0,
-          orderTime: null
+          orderTime: ''
         }}
         setFormValue={vi.fn()}
         hasBeenSubmitted={true}
       />
     );
     const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput } = setup();
+    const invalid = 'invalid';
 
-    expect(cartValueInput.classList.contains('invalid')).toBe(true);
-    expect(deliveryDistanceInput.classList.contains('invalid')).toBe(true);
-    expect(numberOfItemsInput.classList.contains('invalid')).toBe(true);
-    expect(orderTimeInput.classList.contains('invalid')).toBe(true);
+    expect(cartValueInput.classList.contains(invalid)).toBe(true);
+    expect(deliveryDistanceInput.classList.contains(invalid)).toBe(true);
+    expect(numberOfItemsInput.classList.contains(invalid)).toBe(true);
+    expect(orderTimeInput.classList.contains(invalid)).toBe(true);
   });
 
   it('all fields should be accessible', async () => {

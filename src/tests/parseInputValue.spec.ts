@@ -1,6 +1,6 @@
 import { parseInputValue } from '../services/parseInputValue';
 
-describe('formatInputValue tests', () => {
+describe('parseInputValue tests', () => {
   it('should return 0 when input is 0 for cartValue', () => {
     expect(parseInputValue('0', 'cartValue')).toBe(0);
   });

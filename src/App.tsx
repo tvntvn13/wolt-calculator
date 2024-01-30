@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.css';
+import './styles/App.css';
 import FormActionButton from './components/FormActionButton';
 import InputForm from './components/InputForm';
 import ResultDisplay from './components/ResultDisplay';

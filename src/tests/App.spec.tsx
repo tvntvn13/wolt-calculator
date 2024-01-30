@@ -114,15 +114,20 @@ describe('App tests', () => {
     });
 
     it('should calculate the delivery fee onSubmit when the button is clicked', async () => {
-      const { cartValueInput, deliveryDistanceInput, numberOfItemsInput, orderTimeInput, user } =
-        setup();
+      const {
+        cartValueInput,
+        deliveryDistanceInput,
+        numberOfItemsInput,
+        orderTimeInput,
+        calculateFeeButton,
+        user
+      } = setup();
       await user.type(cartValueInput, '12');
       await user.type(deliveryDistanceInput, '1001');
       await user.type(numberOfItemsInput, '4');
       userEvent.clear(orderTimeInput);
       await user.type(orderTimeInput, '2024-11-11T10:00');
 
-      const calculateFeeButton = screen.getByRole('button');
       await user.click(calculateFeeButton);
 
       expect(screen.getByTestId('fee').textContent).toBe('3.00 €');
@@ -138,14 +143,15 @@ describe('App tests', () => {
       userEvent.clear(orderTimeInput);
       await user.type(orderTimeInput, '2024-11-11T10:00');
       await user.type(orderTimeInput, '{enter}');
+
       expect(screen.getByTestId('fee').textContent).toBe('4.70 €');
     });
   });
 
-  describe('Calculate correct fee | C = cartValue, D = deliveryDistance, N = numberOfItems, O = OrderTime', () => {
+  describe('should calculate correct fee | C = cartValue, D = deliveryDistance, N = numberOfItems, O = orderTime, F = fee', () => {
     describe('No Rush Hour', () => {
       test.each(noRushHourCases)(
-        'C:$cartValue|D:$deliveryDistance|N:$numberOfItems|O:$orderTime|F:$fee',
+        'C:$cartValue | D:$deliveryDistance | N:$numberOfItems | O:$orderTime => F:$fee',
         async ({ cartValue, deliveryDistance, numberOfItems, orderTime, fee }) => {
           const {
             cartValueInput,
@@ -170,7 +176,7 @@ describe('App tests', () => {
     });
     describe('Rush Hour', () => {
       test.each(rushHourCases)(
-        'C:$cartValue|D:$deliveryDistance|N:$numberOfItems|O:$orderTime|F:$fee',
+        'C:$cartValue | D:$deliveryDistance | N:$numberOfItems | O:$orderTime => F:$fee',
         async ({ cartValue, deliveryDistance, numberOfItems, orderTime, fee }) => {
           const {
             cartValueInput,
