@@ -1,5 +1,4 @@
 import { FormValue } from '../interfaces/formValue';
-import { formatDateTime } from '../services/formatDateTime';
 import { parseInputValue } from '../services/parseInputValue';
 import '../styles/InputForm.css';
 
@@ -106,7 +105,7 @@ const InputForm: React.FC<InputFormProps> = ({
         data-test-id="orderTime"
         id="order-time"
         className={hasBeenSubmitted && !orderTime ? 'invalid input-box' : 'input-box'}
-        value={orderTime ?? formatDateTime(new Date())}
+        value={orderTime || ''}
         onChange={handleInputChange}
       />
       <span id="orderTimeHint" className="hidden">

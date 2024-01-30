@@ -1,5 +1,3 @@
-## [LINK TO THE GOOGLE DRIVE](https://drive.google.com/drive/folders/123h34h3CrxZuU6je84Upcfhbi3JHFu0i?usp=sharing)
-
 ## Delivery Fee Calculator
 
 This project is a pre-assignment for Software Developer Internship at Wolt. The
@@ -14,11 +12,26 @@ made with Typescript and React.
 
 #### Installation
 
-- download the archive, extract the files and install dependencies with your
-  preferred Node package manager:
+- (Google drive might zip the already zipped file, so if that happens you will
+  have to first unzip the first package before unzipping the actual project. You
+  can see it from the file extensions, if there is 2x .zip, then you have to
+  unzip twice.)
+- Grab the link, download the zip file and unzip it with:
+
+```bash
+unzip wolt-calculator.zip-[TIMESTAMP]-001.zip
+```
+
+- then you can zip the actual project into a directory of your choice, e.g.
+  wolt-calculator
 
 ```bash
 unzip wolt-calculator.zip -d wolt-calculator
+```
+
+- after unzipping, go to the directory and install the dependencies:
+
+```bash
 cd wolt-calculator
 npm install
 ```
@@ -35,7 +48,6 @@ The project is build with Vite and organised in the following way:
 
 ```bash
  src
-├──  App.css
 ├──  App.tsx
 ├──  assets
 │   └──  fonts
@@ -56,6 +68,7 @@ The project is build with Vite and organised in the following way:
 │   ├──  formatDateTime.ts
 │   └──  parseInputValue.ts
 ├──  styles
+│   ├──  App.css
 │   ├──  FormActionButton.css
 │   ├──  InputForm.css
 │   └──  ResultDisplay.css
@@ -65,8 +78,8 @@ The project is build with Vite and organised in the following way:
     ├──  data
     │   └──  testCases.ts
     ├──  FormActionButton.spec.tsx
-    ├──  formatInputValue.spec.ts
     ├──  InputForm.spec.tsx
+    ├──  parseInputValue.spec.ts
     └──  ResultDisplay.spec.tsx
 ```
 
@@ -92,8 +105,8 @@ The project is build with Vite and organised in the following way:
   missing, they will be highlighted and hints will be provided by using the
   browsers built-in functionality
   - Decision to use the browsers built-in systems, instead of writing custom
-    implementation, was done to provide a clear and safe experience that the
-    users are already familiar with
+    implementation, was done to provide a clear and familiar experience to the
+    users
 - The project is tested for accessibility using axe DevTools browser extension
 
 #### UI/UX
