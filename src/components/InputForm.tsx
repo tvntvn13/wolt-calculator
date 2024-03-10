@@ -12,7 +12,7 @@ const InputForm: React.FC<InputFormProps> = ({
   formValue,
   setFormValue,
   hasBeenSubmitted
-}): JSX.Element => {
+}): React.JSX.Element => {
   const { cartValue, deliveryDistance, numberOfItems, orderTime } = formValue;
   const MIN_FLOAT_VALUE = 0.01;
   const MIN_INT_VALUE = 1;
@@ -40,7 +40,6 @@ const InputForm: React.FC<InputFormProps> = ({
         min={MIN_FLOAT_VALUE}
         max={MAX_VALUE}
         step={MIN_FLOAT_VALUE}
-        required={true}
         type="number"
         data-test-id="cartValue"
         id="cart-value"
@@ -51,6 +50,7 @@ const InputForm: React.FC<InputFormProps> = ({
         }
         value={cartValue >= 0 ? cartValue : ''}
         onChange={handleInputChange}
+        required
       />
       <span id="cartValueHint" className="hidden">
         Enter the cart value in euros. Accepts positive decimal numbers between 0.01 and 1000000.
@@ -64,13 +64,13 @@ const InputForm: React.FC<InputFormProps> = ({
         step={MIN_INT_VALUE}
         min={MIN_INT_VALUE}
         max={MAX_VALUE}
-        required={true}
         type="number"
         data-test-id="deliveryDistance"
         id="delivery-distance"
         className={hasBeenSubmitted && !deliveryDistance ? 'invalid input-box' : 'input-box'}
         value={deliveryDistance || ''}
         onChange={handleInputChange}
+        required
       />
       <span id="deliveryDistanceHint" className="hidden">
         Enter the distance in meters. Accepts positive numbers between 1 and 1000000.
@@ -84,13 +84,13 @@ const InputForm: React.FC<InputFormProps> = ({
         step={MIN_INT_VALUE}
         min={MIN_INT_VALUE}
         max={MAX_VALUE}
-        required={true}
         type="number"
         data-test-id="numberOfItems"
         id="number-of-items"
         className={hasBeenSubmitted && !numberOfItems ? 'invalid input-box' : 'input-box'}
         value={numberOfItems || ''}
         onChange={handleInputChange}
+        required
       />
       <span id="numberOfItemsHint" className="hidden">
         Enter the number of items. Accepts positive numbers between 1 and 1000000.
@@ -101,12 +101,12 @@ const InputForm: React.FC<InputFormProps> = ({
         aria-required="true"
         name="orderTime"
         type="datetime-local"
-        required={true}
         data-test-id="orderTime"
         id="order-time"
         className={hasBeenSubmitted && !orderTime ? 'invalid input-box' : 'input-box'}
         value={orderTime || ''}
         onChange={handleInputChange}
+        required
       />
       <span id="orderTimeHint" className="hidden">
         Select or enter the date and time.

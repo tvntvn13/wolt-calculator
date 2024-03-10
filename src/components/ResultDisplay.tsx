@@ -4,7 +4,7 @@ interface ResultDisplayProps {
   calculatedFee: string;
 }
 
-const ResultDisplay: React.FC<ResultDisplayProps> = ({ calculatedFee }): JSX.Element => {
+const ResultDisplay: React.FC<ResultDisplayProps> = ({ calculatedFee }): React.JSX.Element => {
   return (
     <div className="result-container" aria-live="polite">
       <p>Delivery Fee:</p>

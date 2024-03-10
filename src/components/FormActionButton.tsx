@@ -5,7 +5,10 @@ interface FormActionButtonProps {
   text: string;
 }
 
-const FormActionButton: React.FC<FormActionButtonProps> = ({ onClick, text }): JSX.Element => {
+const FormActionButton: React.FC<FormActionButtonProps> = ({
+  onClick,
+  text
+}): React.JSX.Element => {
   return (
     <button className="action-button" onClick={onClick}>
       {text}
