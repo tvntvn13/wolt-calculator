@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import './styles/App.css';
+import Badge from './components/Badge';
 import FormActionButton from './components/FormActionButton';
 import InputForm from './components/InputForm';
 import ResultDisplay from './components/ResultDisplay';
 import { FormValue } from './interfaces/formValue';
 import { calculateDeliveryFee, isValidFormValue } from './services/calculateDeliveryFee';
 import { formatDateTime } from './services/formatDateTime';
+import './styles/App.css';
 
-const App: React.FC = (): JSX.Element => {
+const App: React.FC = (): React.JSX.Element => {
   const HEADER_TEXT = 'Delivery Fee Calculator';
   const defaultFormValue: FormValue = {
     cartValue: -1, // has to be < 0 for the placeholder logic in InputForm
@@ -46,6 +47,7 @@ const App: React.FC = (): JSX.Element => {
           <FormActionButton onClick={handleSubmit} text="CALCULATE FEE" />
         </form>
       </main>
+      <Badge />
     </>
   );
 };
