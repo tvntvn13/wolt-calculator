@@ -1,4 +1,7 @@
-## Delivery Fee Calculator
+# Delivery Fee Calculator
+
+<a href="https://tvntvn.me" target="_blank"><b>Check out live version!</b></a>
+<br>
 
 This project is a pre-assignment for Software Developer Internship at Wolt. The
 project is the frontend implementation of the
@@ -7,31 +10,16 @@ made with Typescript and React.
 
 <br>
 <div align="center">
-    <img src="./public/iphone-preview.png" alt="iphone preview of the app" width="auto" height="600"/>
+    <img src="./public/iphone-preview.png" alt="iphone preview of the app"
+    width="auto" height="600"/>
 </div>
 
-#### Installation
+## Installation
 
-- (Google drive might zip the already zipped file, so if that happens you will
-  have to first unzip the first package before unzipping the actual project. You
-  can see it from the file extensions, if there is 2x .zip, then you have to
-  unzip twice.)
-- Grab the link, download the zip file and unzip it with:
+- clone the repo, go to the directory and install the dependencies:
 
 ```bash
-unzip wolt-calculator.zip-[TIMESTAMP]-001.zip
-```
-
-- then you can zip the actual project into a directory of your choice, e.g.
-  wolt-calculator
-
-```bash
-unzip wolt-calculator.zip -d wolt-calculator
-```
-
-- after unzipping, go to the directory and install the dependencies:
-
-```bash
+git clone git@github.com:tvntvn13/wolt-calculator.git
 cd wolt-calculator
 npm install
 ```
@@ -42,7 +30,7 @@ npm install
 npm run build && npm run preview
 ```
 
-#### Project structure
+### Project structure
 
 The project is build with Vite and organised in the following way:
 
@@ -51,10 +39,8 @@ The project is build with Vite and organised in the following way:
 ├──  App.tsx
 ├──  assets
 │   └──  fonts
-│       ├──  OmnesBold.woff
-│       ├──  OmnesMedium.woff
-│       └──  OmnesSemiBold.woff
 ├──  components
+│   ├──  Badge.tsx
 │   ├──  FormActionButton.tsx
 │   ├──  InputForm.tsx
 │   └──  ResultDisplay.tsx
@@ -76,7 +62,6 @@ The project is build with Vite and organised in the following way:
     ├──  App.spec.tsx
     ├──  calculateDeliveryFee.spec.ts
     ├──  data
-    │   └──  testCases.ts
     ├──  FormActionButton.spec.tsx
     ├──  InputForm.spec.tsx
     ├──  parseInputValue.spec.ts
