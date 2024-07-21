@@ -147,6 +147,15 @@ npm run test:dev
 npm run lint
 ```
 
+#### CI/CD
+
+- This project uses GitHub Actions for continuous integration and continuous delivery.
+- The CI pipeline is triggered on every pull request and push to the main branch.
+- The pipeline includes the following steps:
+  - Running a SonarCloud scan to analyze code quality and generate a coverage report.
+  - Running linters to ensure code style consistency.
+  - Running tests to verify the functionality of the codebase.
+
 #### Dependencies
 
 - To keep the dependencies minimal and the bundle size small, I opted not to use
