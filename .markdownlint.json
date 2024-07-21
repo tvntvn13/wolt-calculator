@@ -1,4 +1,5 @@
 {
   "default": true,
-  "html": false
+  "html": false,
+  "no-inline-html": false
 }

@@ -12,7 +12,9 @@ dist
 dist-ssr
 *.local
 coverage/
+.scannerwork
 *.zip
+*link.txt
 
 # Editor directories and files
 .vscode/*

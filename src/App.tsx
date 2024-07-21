@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Badge from './components/Badge';
 import FormActionButton from './components/FormActionButton';
 import InputForm from './components/InputForm';

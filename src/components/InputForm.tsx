@@ -1,3 +1,4 @@
+import React from 'react';
 import { FormValue } from '../interfaces/formValue';
 import { parseInputValue } from '../services/parseInputValue';
 import '../styles/InputForm.css';
@@ -34,7 +35,7 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="cart-value">Cart Value (€)</label>
       <input
         aria-describedby="cartValueHint"
-        aria-required="true"
+        aria-required
         name="cartValue"
         placeholder="0.00 €"
         min={MIN_FLOAT_VALUE}
@@ -58,7 +59,7 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="delivery-distance">Delivery Distance (m)</label>
       <input
         aria-describedby="deliveryDistanceHint"
-        aria-required="true"
+        aria-required
         name="deliveryDistance"
         placeholder="0 meters"
         step={MIN_INT_VALUE}
@@ -78,7 +79,7 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="number-of-items">Number of Items</label>
       <input
         aria-describedby="numberOfItemsHint"
-        aria-required="true"
+        aria-required
         name="numberOfItems"
         placeholder="0 items"
         step={MIN_INT_VALUE}
@@ -98,7 +99,7 @@ const InputForm: React.FC<InputFormProps> = ({
       <label htmlFor="order-time">Order Time</label>
       <input
         aria-describedby="orderTimeHint"
-        aria-required="true"
+        aria-required
         name="orderTime"
         type="datetime-local"
         data-test-id="orderTime"
